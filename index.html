@@ -34,75 +34,28 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
-</head>
-
-<script type="text/javascript">
-        var gk_isXlsx = false;
-        var gk_xlsxFileLookup = {};
-        var gk_fileData = {};
-        function filledCell(cell) {
-          return cell !== '' && cell != null;
-        }
-        function loadFileData(filename) {
-        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
-            try {
-                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
-                var firstSheetName = workbook.SheetNames[0];
-                var worksheet = workbook.Sheets[firstSheetName];
-
-                // Convert sheet to JSON to filter blank rows
-                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
-                // Filter out blank rows (rows where all cells are empty, null, or undefined)
-                var filteredData = jsonData.filter(row => row.some(filledCell));
-
-                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
-                var headerRowIndex = filteredData.findIndex((row, index) =>
-                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
-                );
-                // Fallback
-                if (headerRowIndex === -1 || headerRowIndex > 25) {
-                  headerRowIndex = 0;
-                }
-
-                // Convert filtered JSON back to CSV
-                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
-                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
-                return csv;
-            } catch (e) {
-                console.error(e);
-                return "";
-            }
-        }
-        return gk_fileData[filename] || "";
-        }
-        </script><!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>VVINZ TOP CELLSPARE Sdn Bhd</title>
+  
 </head>
 <body>
-  <header id="header">
+  <header>
     <div class="container">
       <h1><a href="index.html">VVINZ TOP CELLSPARE</a></h1>
-      <nav id="navbar" class="navbar">
+      <nav>
         <ul>
-          <li><a class="nav-link active" href="#header">Home</a></li>
-          <li><a class="nav-link" href="#about">About</a></li>
-          <li><a class="nav-link" href="#services">Services</a></li>
-          <li><a class="nav-link" href="#portfolio">Portfolio</a></li>
-          <li><a class="nav-link" href="#pricing">Pricing</a></li>
-          <li><a class="nav-link" href="#team">Team</a></li>
-          <li><a class="nav-link" href="#contact">Contact</a></li>
-          <li class="dropdown"><a href="#"><span>Language</span> <i class="bi bi-chevron-down"></i></a>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#portfolio">Portfolio</a></li>
+          <li><a href="#pricing">Pricing</a></li>
+          <li><a href="#team">Team</a></li>
+          <li><a href="#contact">Contact</a></li>
+          <li class="dropdown"><a href="#">Language <i class="bi bi-chevron-down"></i></a>
             <ul>
               <li><a href="#">English</a></li>
               <li><a href="#">中文</a></li>
             </ul>
           </li>
         </ul>
-        <i class="bi bi-list mobile-nav-toggle"></i>
       </nav>
       <a href="#contact" class="get-started-btn">Get Started</a>
     </div>
@@ -125,25 +78,25 @@
         <div class="col-lg-3 col-md-6">
           <div class="box">
             <h3>Extensive Inventory</h3>
-            <p>We supply parts for major brands like iPhone, Samsung, Huawei, Oppo, Vivo, Xiaomi, and more, covering LCDs, batteries, charging boards, and full housing.</p>
+            <p>We supply parts for major brands like iPhone, Samsung, Huawei, Oppo, Vivo, Xiaomi, and more, covering LCDs, batteries, and housing.</p>
           </div>
         </div>
         <div class="col-lg-3 col-md-6">
           <div class="box">
             <h3>Rapid Delivery</h3>
-            <p>With branches in Sungai Buloh, Rawang, Subang, and Kepong, we ensure parts reach repair shops in under 30 minutes for quick repairs.</p>
+            <p>Our branches in Sungai Buloh, Rawang, Subang, and Kepong ensure parts reach repair shops in under 30 minutes.</p>
           </div>
         </div>
         <div class="col-lg-3 col-md-6">
           <div class="box">
             <h3>Quality Assurance</h3>
-            <p>Our mid-to-high-end parts, including Kupei batteries, match OEM quality at affordable prices, boosting repair shop confidence.</p>
+            <p>Partnered with trusted brands like Kupei, our parts match OEM quality at affordable prices.</p>
           </div>
         </div>
         <div class="col-lg-3 col-md-6">
           <div class="box">
             <h3>Dedicated Support</h3>
-            <p>Our team provides expert guidance and responsive service to ensure repair shops get the right parts, every time.</p>
+            <p>Our team provides expert guidance to ensure repair shops get the right parts quickly.</p>
           </div>
         </div>
       </div>
@@ -155,18 +108,18 @@
       <div class="row">
         <div class="col-lg-6">
           <h2>Who We Are</h2>
-          <h3>Unleashing Potential with Reliable Spare Parts</h3>
-          <p>Founded in 2014 as VVINZ TOP MARKETING Enterprise, we transitioned to VVINZ TOP CELLSPARE Sdn Bhd in 2018 to meet growing demand. With four branches in Sungai Buloh (2014), Rawang (2022), Subang (2024), and Kepong (2025), we aim to expand across Malaysia, inspired by MY DIY and 99speedmarket to bring quality parts to every city center.</p>
+          <h3>Leading Smartphone Spare Parts Supplier</h3>
+          <p>Founded in 2014 as VVINZ TOP MARKETING Enterprise, we became VVINZ TOP CELLSPARE Sdn Bhd in 2018 to meet growing demand. With branches in Sungai Buloh (2014), Rawang (2022), Subang (2024), and Kepong (2025), we serve over 300 repair shops in KL/Selangor.</p>
           <ul>
-            <li>Over 300 repair shop clients in KL/Selangor trust us for consistent supply.</li>
-            <li>Partnered with top brands like Kupei for stable, high-quality components.</li>
-            <li>Expanding online presence on Shopee, Lazada, TikTok, and Xiaohongshu.</li>
+            <li>Partnered with top brands like Kupei for reliable batteries.</li>
+            <li>Expanding to Shopee, Lazada, TikTok, and Xiaohongshu.</li>
+            <li>Planning to open branches in every major Malaysian city.</li>
           </ul>
           <a href="#contact" class="btn-read-more">Read More</a>
         </div>
         <div class="col-lg-6">
           <div class="image-box">
-            <img src="assets/img/about-img.jpg" alt="About VVINZ TOP CELLSPARE">
+            <img src="assets/img/about-img.jpg" alt="VVINZ TOP CELLSPARE">
           </div>
         </div>
       </div>
@@ -175,37 +128,35 @@
 
   <section id="how-we-work">
     <div class="container">
-      <header class="section-header">
-        <h2>How We Work</h2>
-        <p>Delivering quality parts with efficiency and precision</p>
-      </header>
+      <h2>How We Work</h2>
+      <p>Delivering quality parts with speed and precision</p>
       <div class="row">
         <div class="col-lg-3 col-md-6">
           <div class="box">
             <h3>01</h3>
             <h4>Inventory Planning</h4>
-            <p>We maintain robust stock levels across all branches to meet diverse repair needs for brands like iPhone, Samsung, and Huawei.</p>
+            <p>We maintain robust stock for brands like iPhone, Samsung, and Huawei to meet repair needs.</p>
           </div>
         </div>
         <div class="col-lg-3 col-md-6">
           <div class="box">
             <h3>02</h3>
             <h4>Sourcing & Quality Check</h4>
-            <p>We partner with trusted manufacturers like Kupei and conduct rigorous quality checks to ensure parts meet high standards.</p>
+            <p>We partner with manufacturers like Kupei and rigorously test parts for reliability.</p>
           </div>
         </div>
         <div class="col-lg-3 col-md-6">
           <div class="box">
             <h3>03</h3>
             <h4>Distribution</h4>
-            <p>Our logistics network ensures parts are delivered to repair shops within 30 minutes, minimizing downtime.</p>
+            <p>Our logistics network ensures 30-minute delivery to repair shops in KL/Selangor.</p>
           </div>
         </div>
         <div class="col-lg-3 col-md-6">
           <div class="box">
             <h3>04</h3>
             <h4>Customer Support</h4>
-            <p>We provide ongoing support to help repair shops select the right parts and resolve issues quickly.</p>
+            <p>We offer expert assistance to help repair shops select the right components.</p>
           </div>
         </div>
       </div>
@@ -214,50 +165,48 @@
 
   <section id="services">
     <div class="container">
-      <header class="section-header">
-        <h2>Services</h2>
-        <p>Comprehensive solutions for smartphone repair shops</p>
-      </header>
+      <h2>Services</h2>
+      <p>Comprehensive solutions for smartphone repair shops</p>
       <div class="row">
         <div class="col-lg-4 col-md-6">
           <div class="service-box">
             <h3>Screen & LCD Supply</h3>
-            <p>We provide high-quality LCD screens for brands like iPhone, Samsung, Oppo, Vivo, and more, ensuring vibrant displays and durability.</p>
+            <p>High-quality LCD screens for iPhone, Samsung, Oppo, Vivo, and more, ensuring vibrant displays.</p>
             <a href="#contact" class="learn-more">Learn More</a>
           </div>
         </div>
         <div class="col-lg-4 col-md-6">
           <div class="service-box">
             <h3>Battery Solutions</h3>
-            <p>Our Kupei batteries and other high-performance options offer reliable power and longevity at competitive prices.</p>
+            <p>Kupei batteries and other high-performance options for reliable power at competitive prices.</p>
             <a href="#contact" class="learn-more">Learn More</a>
           </div>
         </div>
         <div class="col-lg-4 col-md-6">
           <div class="service-box">
             <h3>Charging & Power Components</h3>
-            <p>We supply charging boards and power switches for seamless functionality across multiple smartphone brands.</p>
+            <p>Charging boards and power switches for seamless functionality across multiple brands.</p>
             <a href="#contact" class="learn-more">Learn More</a>
           </div>
         </div>
         <div class="col-lg-4 col-md-6">
           <div class="service-box">
             <h3>Housing & Back Glass</h3>
-            <p>Full housing sets and back glass replacements to restore devices to their original look and feel.</p>
+            <p>Full housing sets and back glass to restore devices to their original look.</p>
             <a href="#contact" class="learn-more">Learn More</a>
           </div>
         </div>
         <div class="col-lg-4 col-md-6">
           <div class="service-box">
             <h3>Online Retail Support</h3>
-            <p>We’re expanding to Shopee, Lazada, TikTok, and Xiaohongshu to make our parts accessible nationwide.</p>
+            <p>Expanding to Shopee, Lazada, TikTok, and Xiaohongshu for nationwide access.</p>
             <a href="#contact" class="learn-more">Learn More</a>
           </div>
         </div>
         <div class="col-lg-4 col-md-6">
           <div class="service-box">
             <h3>Bulk Wholesale Orders</h3>
-            <p>Customized bulk orders for repair shops with over 300 clients in KL/Selangor, ensuring cost-effective solutions.</p>
+            <p>Customized bulk orders for over 300 repair shops in KL/Selangor with competitive pricing.</p>
             <a href="#contact" class="learn-more">Learn More</a>
           </div>
         </div>
@@ -271,7 +220,7 @@
         <div class="col-lg-6">
           <h2>Our innovative services</h2>
           <h3>Empowering repair shops with quality and speed</h3>
-          <p>VVINZ TOP CELLSPARE Sdn Bhd serves over 300 repair shops in KL/Selangor with premium parts and rapid delivery. Our partnerships with brands like Kupei and plans for online expansion ensure we meet the evolving needs of the repair industry.</p>
+          <p>VVINZ TOP CELLSPARE Sdn Bhd serves over 300 repair shops with premium parts and rapid delivery. Our partnerships with brands like Kupei and online expansion plans ensure we meet industry needs.</p>
           <a href="#services" class="btn-explore">Explore All Services</a>
         </div>
         <div class="col-lg-6">
@@ -285,7 +234,7 @@
             <div class="col-md-6">
               <div class="service-item">
                 <h4>Battery Supply</h4>
-                <p>Reliable batteries from trusted brands like Kupei for long-lasting performance.</p>
+                <p>Reliable batteries from trusted brands like Kupei for lasting performance.</p>
               </div>
             </div>
             <div class="col-md-6">
@@ -297,7 +246,7 @@
             <div class="col-md-6">
               <div class="service-item">
                 <h4>Wholesale Partnerships</h4>
-                <p>Bulk supply for repair shops with competitive pricing and fast delivery.</p>
+                <p>Bulk supply with competitive pricing and fast delivery.</p>
               </div>
             </div>
           </div>
@@ -314,11 +263,11 @@
         </div>
         <div class="col-lg-6">
           <h2>Transform Your Repair Business Today</h2>
-          <p>Join over 300 repair shops in KL/Selangor that trust VVINZ TOP CELLSPARE for high-quality parts and rapid delivery.</p>
+          <p>Join over 300 repair shops in KL/Selangor trusting VVINZ TOP CELLSPARE for quality parts.</p>
           <ul>
-            <li>Access premium parts for all major smartphone brands.</li>
-            <li>Benefit from our 30-minute delivery promise.</li>
-            <li>Partner with us for reliable, cost-effective solutions.</li>
+            <li>Access premium parts for all major brands.</li>
+            <li>30-minute delivery in KL/Selangor.</li>
+            <li>Cost-effective solutions rivaling OEM quality.</li>
           </ul>
           <a href="#contact" class="btn-get-started">Get Started</a>
           <a href="#services" class="btn-learn-more">Learn More</a>
@@ -329,78 +278,62 @@
 
   <section id="portfolio">
     <div class="container">
-      <header class="section-header">
-        <h2>Portfolio</h2>
-        <p>Showcasing our range of high-quality smartphone spare parts</p>
-      </header>
-      <div class="portfolio-filters">
-        <ul>
-          <li class="filter-active">All Work</li>
-          <li>Screen Parts</li>
-          <li>Batteries</li>
-          <li>Housing</li>
-          <li>Accessories</li>
-        </ul>
-      </div>
-      <div class="row portfolio-container">
-        <div class="col-lg-4 col-md-6 portfolio-item">
-          <div class="portfolio-wrap">
+      <h2>Portfolio</h2>
+      <p>Showcasing our range of smartphone spare parts</p>
+      <ul>
+        <li>All Work</li>
+        <li>Screen Parts</li>
+        <li>Batteries</li>
+        <li>Housing</li>
+        <li>Accessories</li>
+      </ul>
+      <div class="row">
+        <div class="col-lg-4 col-md-6">
+          <div class="portfolio-item">
             <img src="assets/img/portfolio/lcd-screen.jpg" alt="LCD Screen">
-            <div class="portfolio-info">
-              <h4>Screen Parts</h4>
-              <h5>iPhone LCD Replacement</h5>
-              <p>High-quality LCD screens for iPhone models, ensuring vibrant displays and touch sensitivity.</p>
-            </div>
+            <h4>Screen Parts</h4>
+            <h5>iPhone LCD Replacement</h5>
+            <p>High-quality LCD screens for iPhone models with vibrant displays.</p>
           </div>
         </div>
-        <div class="col-lg-4 col-md-6 portfolio-item">
-          <div class="portfolio-wrap">
+        <div class="col-lg-4 col-md-6">
+          <div class="portfolio-item">
             <img src="assets/img/portfolio/battery.jpg" alt="Battery">
-            <div class="portfolio-info">
-              <h4>Batteries</h4>
-              <h5>Kupei Battery for Samsung</h5>
-              <p>Reliable, long-lasting batteries from Kupei, trusted by repair shops nationwide.</p>
-            </div>
+            <h4>Batteries</h4>
+            <h5>Kupei Battery for Samsung</h5>
+            <p>Long-lasting batteries from Kupei, trusted by repair shops.</p>
           </div>
         </div>
-        <div class="col-lg-4 col-md-6 portfolio-item">
-          <div class="portfolio-wrap">
+        <div class="col-lg-4 col-md-6">
+          <div class="portfolio-item">
             <img src="assets/img/portfolio/housing.jpg" alt="Housing">
-            <div class="portfolio-info">
-              <h4>Housing</h4>
-              <h5>Huawei Full Housing Set</h5>
-              <p>Complete housing sets for Huawei devices, restoring original look and feel.</p>
-            </div>
+            <h4>Housing</h4>
+            <h5>Huawei Full Housing Set</h5>
+            <p>Complete housing sets for Huawei devices to restore original look.</p>
           </div>
         </div>
-        <div class="col-lg-4 col-md-6 portfolio-item">
-          <div class="portfolio-wrap">
+        <div class="col-lg-4 col-md-6">
+          <div class="portfolio-item">
             <img src="assets/img/portfolio/charging-board.jpg" alt="Charging Board">
-            <div class="portfolio-info">
-              <h4>Accessories</h4>
-              <h5>Oppo Charging Board</h5>
-              <p>High-performance charging boards for seamless power delivery.</p>
-            </div>
+            <h4>Accessories</h4>
+            <h5>Oppo Charging Board</h5>
+            <p>Reliable charging boards for seamless power delivery.</p>
           </div>
         </div>
-        <div class="col-lg-4 col-md-6 portfolio-item">
-          <div class="portfolio-wrap">
+        <div class="col-lg-4 col-md-6">
+          <div class="portfolio-item">
             <img src="assets/img/portfolio/back-glass.jpg" alt="Back Glass">
-            <div class="portfolio-info">
-              <h4>Housing</h4>
-              <h5>Xiaomi Back Glass</h5>
-              <p>Durable back glass replacements for Xiaomi devices at affordable prices.</p>
-            </div>
+            <h4>Housing</h4>
+            <h5>Xiaomi Back Glass</h5>
+            <p>Durable back glass replacements for Xiaomi devices.</p>
           </div>
         </div>
-        <div class="col-lg-4 col-md-6 portfolio-item">
-          <div class="portfolio-wrap">
+        <div class="col-lg-4 col-md-6">
+          <div class="portfolio-item">
             <img src="assets/img/portfolio/power-switch.jpg" alt="Power Switch">
-            <div class="portfolio-info">
-              <h4>Accessories</h4>
-              <h5>Vivo Power Switch</h5>
-              <p>Reliable power switches for Vivo devices, ensuring smooth operation.</p>
-            </div>
+            <h4>Accessories</h4>
+            <h5>Vivo Power Switch</h5>
+            <p>High-quality power switches for Vivo devices.</p>
           </div>
         </div>
       </div>
@@ -409,16 +342,14 @@
 
   <section id="pricing">
     <div class="container">
-      <header class="section-header">
-        <h2>Pricing</h2>
-        <p>Flexible plans for repair shops of all sizes</p>
-      </header>
+      <h2>Pricing</h2>
+      <p>Flexible plans for repair shops of all sizes</p>
       <div class="row">
         <div class="col-lg-4 col-md-6">
           <div class="pricing-box">
             <h3>Basic Plan</h3>
             <h4><sup>RM</sup>99<span>/ month</span></h4>
-            <p>Ideal for small repair shops with standard part requirements.</p>
+            <p>Ideal for small repair shops with standard part needs.</p>
             <ul>
               <li>Access to core inventory (LCDs, batteries)</li>
               <li>30-minute delivery in KL/Selangor</li>
@@ -429,7 +360,7 @@
         </div>
         <div class="col-lg-4 col-md-6">
           <div class="pricing-box">
-            <h3>Standard Plan</h3>
+            <h3>Most Popular</h3>
             <h4><sup>RM</sup>199<span>/ month</span></h4>
             <p>Perfect for growing repair shops with diverse needs.</p>
             <ul>
@@ -448,9 +379,9 @@
             <p>Tailored for large repair chains with high-volume needs.</p>
             <ul>
               <li>Complete inventory access</li>
-              <li>Express delivery and dedicated logistics</li>
+              <li>Express delivery</li>
               <li>24/7 support (email, phone, chat)</li>
-              <li>Custom bulk order discounts</li>
+              <li>Custom bulk discounts</li>
               <li>Exclusive access to new parts</li>
             </ul>
             <a href="#contact" class="btn-buy">Buy Now</a>
@@ -465,7 +396,7 @@
       <div class="row">
         <div class="col-lg-6">
           <h3>Still Have Questions?</h3>
-          <p>Contact our team for personalized assistance or explore our FAQs for quick answers.</p>
+          <p>Contact our team for personalized assistance or explore our FAQs.</p>
           <ul>
             <li>Email Support</li>
             <li>Live Chat</li>
@@ -475,19 +406,19 @@
         <div class="col-lg-6">
           <div class="faq-item">
             <h4>What brands do you supply parts for?</h4>
-            <p>We provide parts for iPhone, iPad, Samsung, Huawei, Oppo, Realme, Vivo, Xiaomi, OnePlus, and more.</p>
+            <p>We provide parts for iPhone, Samsung, Huawei, Oppo, Vivo, Xiaomi, and more.</p>
           </div>
           <div class="faq-item">
             <h4>How fast is your delivery?</h4>
-            <p>Our branches in Sungai Buloh, Rawang, Subang, and Kepong ensure delivery within 30 minutes in KL/Selangor.</p>
+            <p>We deliver within 30 minutes in KL/Selangor from our branches.</p>
           </div>
           <div class="faq-item">
             <h4>Are your parts original?</h4>
-            <p>Our mid-to-high-end parts match OEM quality but are priced more affordably, offering great value.</p>
+            <p>Our parts match OEM quality but are priced more affordably.</p>
           </div>
           <div class="faq-item">
             <h4>Do you offer bulk discounts?</h4>
-            <p>Yes, our Standard and Premium plans include bulk order discounts for repair shops.</p>
+            <p>Yes, our Standard and Premium plans include bulk order discounts.</p>
           </div>
         </div>
       </div>
@@ -496,14 +427,12 @@
 
   <section id="team">
     <div class="container">
-      <header class="section-header">
-        <h2>Team</h2>
-        <p>Meet the team driving VVINZ TOP CELLSPARE’s success</p>
-      </header>
+      <h2>Team</h2>
+      <p>Meet the team behind VVINZ TOP CELLSPARE</p>
       <div class="row">
         <div class="col-lg-3 col-md-6">
           <div class="member">
-            <p>With over a decade of experience in the mobile spare parts industry, our founder leads with a vision to expand across Malaysia.</p>
+            <p>Over a decade of experience in the mobile parts industry, leading our expansion.</p>
             <img src="assets/img/team/founder.jpg" alt="Founder">
             <h4>Ahmad Zainal</h4>
             <span>Founder & CEO</span>
@@ -511,7 +440,7 @@
         </div>
         <div class="col-lg-3 col-md-6">
           <div class="member">
-            <p>Oversees inventory and partnerships with brands like Kupei to ensure quality and reliability.</p>
+            <p>Manages inventory and partnerships with brands like Kupei.</p>
             <img src="assets/img/team/supply-manager.jpg" alt="Supply Manager">
             <h4>Lina Tan</h4>
             <span>Supply Chain Manager</span>
@@ -519,7 +448,7 @@
         </div>
         <div class="col-lg-3 col-md-6">
           <div class="member">
-            <p>Manages logistics to ensure 30-minute deliveries across all branches.</p>
+            <p>Ensures 30-minute deliveries across all branches.</p>
             <img src="assets/img/team/logistics.jpg" alt="Logistics Manager">
             <h4>Rajesh Kumar</h4>
             <span>Logistics Manager</span>
@@ -527,7 +456,7 @@
         </div>
         <div class="col-lg-3 col-md-6">
           <div class="member">
-            <p>Leads our online expansion on platforms like Shopee, Lazada, and TikTok.</p>
+            <p>Leads our online expansion on Shopee, Lazada, and TikTok.</p>
             <img src="assets/img/team/ecommerce.jpg" alt="E-commerce Manager">
             <h4>Siti Nur</h4>
             <span>E-commerce Manager</span>
@@ -539,14 +468,12 @@
 
   <section id="testimonials">
     <div class="container">
-      <header class="section-header">
-        <h2>Testimonials</h2>
-        <p>What our clients say about us</p>
-      </header>
+      <h2>Testimonials</h2>
+      <p>What our clients say about us</p>
       <div class="row">
         <div class="col-lg-4 col-md-6">
           <div class="testimonial-item">
-            <p>VVINZ TOP’s Kupei batteries have transformed our repair quality. Customers love the performance!</p>
+            <p>VVINZ TOP’s Kupei batteries have improved our repair quality significantly.</p>
             <img src="assets/img/testimonials/client1.jpg" alt="Client">
             <h4>Chong Wei</h4>
             <span>Repair Shop Owner, Subang</span>
@@ -554,7 +481,7 @@
         </div>
         <div class="col-lg-4 col-md-6">
           <div class="testimonial-item">
-            <p>The 30-minute delivery promise is a game-changer. We never keep customers waiting!</p>
+            <p>Their 30-minute delivery is a game-changer for our business.</p>
             <img src="assets/img/testimonials/client2.jpg" alt="Client">
             <h4>Aminah Salleh</h4>
             <span>Repair Shop Manager, Rawang</span>
@@ -562,7 +489,7 @@
         </div>
         <div class="col-lg-4 col-md-6">
           <div class="testimonial-item">
-            <p>Their LCD screens match OEM quality but at half the price. Highly recommended!</p>
+            <p>Their LCD screens are top-notch and cost-effective.</p>
             <img src="assets/img/testimonials/client3.jpg" alt="Client">
             <h4>Jason Lim</h4>
             <span>Technician, Kepong</span>
@@ -570,7 +497,7 @@
         </div>
         <div class="col-lg-4 col-md-6">
           <div class="testimonial-item">
-            <p>VVINZ TOP’s support team always helps us find the right parts quickly.</p>
+            <p>Excellent support team, always helping us find the right parts.</p>
             <img src="assets/img/testimonials/client4.jpg" alt="Client">
             <h4>Suresh Nair</h4>
             <span>Repair Shop Owner, Sungai Buloh</span>
@@ -578,7 +505,7 @@
         </div>
         <div class="col-lg-4 col-md-6">
           <div class="testimonial-item">
-            <p>Their bulk discounts have saved us thousands while maintaining quality.</p>
+            <p>Bulk discounts have saved us thousands while maintaining quality.</p>
             <img src="assets/img/testimonials/client5.jpg" alt="Client">
             <h4>Fatimah Yusof</h4>
             <span>Repair Chain Manager, KL</span>
@@ -586,7 +513,7 @@
         </div>
         <div class="col-lg-4 col-md-6">
           <div class="testimonial-item">
-            <p>Excited for their online store expansion. It’ll make ordering even easier!</p>
+            <p>Excited for their online store expansion for easier ordering.</p>
             <img src="assets/img/testimonials/client6.jpg" alt="Client">
             <h4>David Tan</h4>
             <span>Repair Technician, Selangor</span>
@@ -598,10 +525,8 @@
 
   <section id="contact">
     <div class="container">
-      <header class="section-header">
-        <h2>Contact</h2>
-        <p>Reach out to us for all your spare parts needs</p>
-      </header>
+      <h2>Contact</h2>
+      <p>Reach out for your spare parts needs</p>
       <div class="row">
         <div class="col-lg-4 col-md-6">
           <div class="contact-box">
@@ -659,10 +584,10 @@
     </div>
   </section>
 
-  <footer id="footer">
+  <footer>
     <div class="container">
       <div class="row">
-        <div class="col-lg-3 col-md-6 footer-info">
+        <div class="col-lg-3 col-md-6">
           <h3>VVINZ TOP CELLSPARE</h3>
           <p>Lot 123, Jalan Industri, Sungai Buloh, 47000 Selangor, Malaysia</p>
           <p>Phone: +60 12-345 6789</p>
@@ -674,17 +599,17 @@
             <a href="#"><i class="bi bi-linkedin"></i></a>
           </div>
         </div>
-        <div class="col-lg-2 col-md-6 footer-links">
+        <div class="col-lg-2 col-md-6">
           <h4>Useful Links</h4>
           <ul>
-            <li><a href="#header">Home</a></li>
+            <li><a href="#home">Home</a></li>
             <li><a href="#about">About us</a></li>
             <li><a href="#services">Services</a></li>
             <li><a href="#">Terms of service</a></li>
             <li><a href="#">Privacy policy</a></li>
           </ul>
         </div>
-        <div class="col-lg-3 col-md-6 footer-links">
+        <div class="col-lg-2 col-md-6">
           <h4>Our Services</h4>
           <ul>
             <li>Screen & LCD Supply</li>
@@ -694,7 +619,7 @@
             <li>Bulk Wholesale Orders</li>
           </ul>
         </div>
-        <div class="col-lg-2 col-md-6 footer-links">
+        <div class="col-lg-2 col-md-6">
           <h4>Our Branches</h4>
           <ul>
             <li>Sungai Buloh (2014)</li>
@@ -703,7 +628,7 @@
             <li>Kepong (2025)</li>
           </ul>
         </div>
-        <div class="col-lg-2 col-md-6 footer-links">
+        <div class="col-lg-2 col-md-6">
           <h4>Online Platforms</h4>
           <ul>
             <li>Shopee</li>
@@ -715,9 +640,7 @@
       </div>
     </div>
     <div class="container">
-      <div class="copyright">
-        © Copyright VVINZ TOP CELLSPARE All Rights Reserved
-      </div>
+      <p>© Copyright VVINZ TOP CELLSPARE All Rights Reserved</p>
       <div class="credits">
         Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
       </div>
