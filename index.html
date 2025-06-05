@@ -1,1399 +1,689 @@
-<!DOCTYPE html>
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>Index - Invent Bootstrap Template</title>
-  <meta name="description" content="">
-  <meta name="keywords" content="">
-
-  <!-- Favicons -->
-  <link href="assets/img/favicon.png" rel="icon">
-  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
-
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com" rel="preconnect">
-  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-
-  <!-- Vendor CSS Files -->
-  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
-  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
-
-  <!-- Main CSS File -->
-  <link href="assets/css/main.css" rel="stylesheet">
-
-  <!-- =======================================================
-  * Template Name: Invent
-  * Template URL: https://bootstrapmade.com/invent-bootstrap-business-template/
-  * Updated: May 12 2025 with Bootstrap v5.3.6
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VVINZ TOP CELLSPARE Sdn Bhd</title>
 </head>
-
-<body class="index-page">
-
-  <header id="header" class="header d-flex align-items-center fixed-top">
-    <div class="container position-relative d-flex align-items-center justify-content-between">
-
-      <a href="index.html" class="logo d-flex align-items-center me-auto me-xl-0">
-        <!-- Uncomment the line below if you also wish to use an image logo -->
-        <!-- <img src="assets/img/logo.webp" alt=""> -->
-        <h1 class="sitename">VVIN TOP</h1><span>.</span>
-      </a>
-
-      <nav id="navmenu" class="navmenu">
+<body>
+  <header id="header">
+    <div class="container">
+      <h1><a href="index.html">VVINZ TOP CELLSPARE</a></h1>
+      <nav id="navbar" class="navbar">
         <ul>
-          <li><a href="#hero" class="active">Home</a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="#services">Services</a></li>
-          <li><a href="#portfolio">Portfolio</a></li>
-          <li><a href="#pricing">Pricing</a></li>
-          <li><a href="#team">Team</a></li>
-          
-          </li>
-          <li><a href="#contact">Contact</a></li>
-          <li class="dropdown"><a href="#"><span>Language</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+          <li><a class="nav-link active" href="#header">Home</a></li>
+          <li><a class="nav-link" href="#about">About</a></li>
+          <li><a class="nav-link" href="#services">Services</a></li>
+          <li><a class="nav-link" href="#portfolio">Portfolio</a></li>
+          <li><a class="nav-link" href="#pricing">Pricing</a></li>
+          <li><a class="nav-link" href="#team">Team</a></li>
+          <li><a class="nav-link" href="#contact">Contact</a></li>
+          <li class="dropdown"><a href="#"><span>Language</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
-
-              
-    
               <li><a href="#">English</a></li>
               <li><a href="#">中文</a></li>
-        
             </ul>
+          </li>
         </ul>
-        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+        <i class="bi bi-list mobile-nav-toggle"></i>
       </nav>
-
-      <a class="btn-getstarted" href="#about">Get Started</a>
-
+      <a href="#contact" class="get-started-btn">Get Started</a>
     </div>
   </header>
 
-  <main class="main">
-
-    <!-- Hero Section -->
-    <section id="hero" class="hero section">
-
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
-
-        <div class="row align-items-center mb-5">
-          <div class="col-lg-6 mb-4 mb-lg-0">
-            <div class="badge-wrapper mb-3">
-              <div class="d-inline-flex align-items-center rounded-pill border border-accent-light">
-                <div class="icon-circle me-2">
-                  <i class="bi bi-bell"></i>
-                </div>
-                <span class="badge-text me-3">Innovative Solutions</span>
-              </div>
-            </div>
-
-            <h1 class="hero-title mb-4">Accelerating business growth through innovative technology</h1>
-
-            <p class="hero-description mb-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas varius tortor nibh, sit amet tempor nibh finibus et. Aenean eu enim justo.</p>
-
-            <div class="cta-wrapper">
-              <a href="#" class="btn btn-primary">Discover More</a>
-            </div>
-          </div>
-
-          <div class="col-lg-6">
-            <div class="hero-image">
-              <img src="assets/img/illustration/illustration-16.webp" alt="Business Growth" class="img-fluid" loading="lazy">
-            </div>
-          </div>
-        </div>
-
-        <div class="row feature-boxes">
-          <div class="col-lg-4 mb-4 mb-lg-0" data-aos="fade-up" data-aos-delay="200">
-            <div class="feature-box">
-              <div class="feature-icon me-sm-4 mb-3 mb-sm-0">
-                <i class="bi bi-gear"></i>
-              </div>
-              <div class="feature-content">
-                <h3 class="feature-title">Rapid Deployment</h3>
-                <p class="feature-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis.</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 mb-4 mb-lg-0" data-aos="fade-up" data-aos-delay="300">
-            <div class="feature-box">
-              <div class="feature-icon me-sm-4 mb-3 mb-sm-0">
-                <i class="bi bi-window"></i>
-              </div>
-              <div class="feature-content">
-                <h3 class="feature-title">Advanced Security</h3>
-                <p class="feature-text">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="400">
-            <div class="feature-box">
-              <div class="feature-icon me-sm-4 mb-3 mb-sm-0">
-                <i class="bi bi-headset"></i>
-              </div>
-              <div class="feature-content">
-                <h3 class="feature-title">Dedicated Support</h3>
-                <p class="feature-text">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
+  <section id="hero">
+    <div class="hero-container">
+      <div class="hero-content">
+        <h2>Premium Smartphone Spare Parts</h2>
+        <h3>Empowering Repair Shops Across Malaysia</h3>
+        <p>VVINZ TOP CELLSPARE Sdn Bhd provides high-quality, cost-effective smartphone components to over 300 repair shops in KL/Selangor, with rapid delivery and trusted brands like Kupei.</p>
+        <a href="#services" class="btn-get-started">Discover More</a>
       </div>
+    </div>
+  </section>
 
-    </section><!-- /Hero Section -->
-
-    <!-- About Section -->
-    <section id="about" class="about section">
-
-      <div class="container">
-
-        <div class="row gy-4">
-
-          <div class="col-lg-6 content" data-aos="fade-up" data-aos-delay="100">
-            <p class="who-we-are">Who We Are</p>
-            <h3>Unleashing Potential with Creative Strategy</h3>
-            <p class="fst-italic">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-              magna aliqua.
-            </p>
-            <ul>
-              <li><i class="bi bi-check-circle"></i> <span>Ullamco laboris nisi ut aliquip ex ea commodo consequat.</span></li>
-              <li><i class="bi bi-check-circle"></i> <span>Duis aute irure dolor in reprehenderit in voluptate velit.</span></li>
-              <li><i class="bi bi-check-circle"></i> <span>Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate trideta storacalaperda mastiro dolore eu fugiat nulla pariatur.</span></li>
-            </ul>
-            <a href="#" class="read-more"><span>Read More</span><i class="bi bi-arrow-right"></i></a>
+  <section id="features">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-3 col-md-6">
+          <div class="box">
+            <h3>Extensive Inventory</h3>
+            <p>We supply parts for major brands like iPhone, Samsung, Huawei, Oppo, Vivo, Xiaomi, and more, covering LCDs, batteries, charging boards, and full housing.</p>
           </div>
-
-          <div class="col-lg-6 about-images" data-aos="fade-up" data-aos-delay="200">
-            <div class="row gy-4">
-              <div class="col-lg-6">
-                <img src="assets/img/about/about-portrait-1.webp" class="img-fluid" alt="">
-              </div>
-              <div class="col-lg-6">
-                <div class="row gy-4">
-                  <div class="col-lg-12">
-                    <img src="assets/img/about/about-8.webp" class="img-fluid" alt="">
-                  </div>
-                  <div class="col-lg-12">
-                    <img src="assets/img/about/about-12.webp" class="img-fluid" alt="">
-                  </div>
-                </div>
-              </div>
-            </div>
-
-          </div>
-
         </div>
-
+        <div class="col-lg-3 col-md-6">
+          <div class="box">
+            <h3>Rapid Delivery</h3>
+            <p>With branches in Sungai Buloh, Rawang, Subang, and Kepong, we ensure parts reach repair shops in under 30 minutes for quick repairs.</p>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <div class="box">
+            <h3>Quality Assurance</h3>
+            <p>Our mid-to-high-end parts, including Kupei batteries, match OEM quality at affordable prices, boosting repair shop confidence.</p>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <div class="box">
+            <h3>Dedicated Support</h3>
+            <p>Our team provides expert guidance and responsive service to ensure repair shops get the right parts, every time.</p>
+          </div>
+        </div>
       </div>
-    </section><!-- /About Section -->
+    </div>
+  </section>
 
-    <!-- How We Work Section -->
-    <section id="how-we-work" class="how-we-work section">
+  <section id="about">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6">
+          <h2>Who We Are</h2>
+          <h3>Unleashing Potential with Reliable Spare Parts</h3>
+          <p>Founded in 2014 as VVINZ TOP MARKETING Enterprise, we transitioned to VVINZ TOP CELLSPARE Sdn Bhd in 2018 to meet growing demand. With four branches in Sungai Buloh (2014), Rawang (2022), Subang (2024), and Kepong (2025), we aim to expand across Malaysia, inspired by MY DIY and 99speedmarket to bring quality parts to every city center.</p>
+          <ul>
+            <li>Over 300 repair shop clients in KL/Selangor trust us for consistent supply.</li>
+            <li>Partnered with top brands like Kupei for stable, high-quality components.</li>
+            <li>Expanding online presence on Shopee, Lazada, TikTok, and Xiaohongshu.</li>
+          </ul>
+          <a href="#contact" class="btn-read-more">Read More</a>
+        </div>
+        <div class="col-lg-6">
+          <div class="image-box">
+            <img src="assets/img/about-img.jpg" alt="About VVINZ TOP CELLSPARE">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
+  <section id="how-we-work">
+    <div class="container">
+      <header class="section-header">
         <h2>How We Work</h2>
-        <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
-      </div><!-- End Section Title -->
-
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
-
-        <div class="steps-5">
-          <div class="process-container">
-
-            <div class="process-item" data-aos="fade-up" data-aos-delay="200">
-              <div class="content">
-                <span class="step-number">01</span>
-                <div class="card-body">
-                  <div class="step-icon">
-                    <i class="bi bi-pencil-square"></i>
-                  </div>
-                  <div class="step-content">
-                    <h3>Project Planning</h3>
-                    <p>Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim.</p>
-                  </div>
-                </div>
-              </div>
-            </div><!-- End Process Item -->
-
-            <div class="process-item" data-aos="fade-up" data-aos-delay="300">
-              <div class="content">
-                <span class="step-number">02</span>
-                <div class="card-body">
-                  <div class="step-icon">
-                    <i class="bi bi-gear"></i>
-                  </div>
-                  <div class="step-content">
-                    <h3>Development Phase</h3>
-                    <p>Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante. Etiam sit amet orci eget eros faucibus.</p>
-                  </div>
-                </div>
-              </div>
-            </div><!-- End Process Item -->
-
-            <div class="process-item" data-aos="fade-up" data-aos-delay="400">
-              <div class="content">
-                <span class="step-number">03</span>
-                <div class="card-body">
-                  <div class="step-icon">
-                    <i class="bi bi-search"></i>
-                  </div>
-                  <div class="step-content">
-                    <h3>Testing &amp; QA</h3>
-                    <p>Phasellus ullamcorper ipsum rutrum nunc. Nunc nonummy metus. Vestibulum volutpat pretium libero.</p>
-                  </div>
-                </div>
-              </div>
-            </div><!-- End Process Item -->
-
-            <div class="process-item" data-aos="fade-up" data-aos-delay="500">
-              <div class="content">
-                <span class="step-number">04</span>
-                <div class="card-body">
-                  <div class="step-icon">
-                    <i class="bi bi-rocket-takeoff"></i>
-                  </div>
-                  <div class="step-content">
-                    <h3>Launch &amp; Support</h3>
-                    <p>Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt.</p>
-                  </div>
-                </div>
-              </div>
-            </div><!-- End Process Item -->
-
+        <p>Delivering quality parts with efficiency and precision</p>
+      </header>
+      <div class="row">
+        <div class="col-lg-3 col-md-6">
+          <div class="box">
+            <h3>01</h3>
+            <h4>Inventory Planning</h4>
+            <p>We maintain robust stock levels across all branches to meet diverse repair needs for brands like iPhone, Samsung, and Huawei.</p>
           </div>
         </div>
-
+        <div class="col-lg-3 col-md-6">
+          <div class="box">
+            <h3>02</h3>
+            <h4>Sourcing & Quality Check</h4>
+            <p>We partner with trusted manufacturers like Kupei and conduct rigorous quality checks to ensure parts meet high standards.</p>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <div class="box">
+            <h3>03</h3>
+            <h4>Distribution</h4>
+            <p>Our logistics network ensures parts are delivered to repair shops within 30 minutes, minimizing downtime.</p>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <div class="box">
+            <h3>04</h3>
+            <h4>Customer Support</h4>
+            <p>We provide ongoing support to help repair shops select the right parts and resolve issues quickly.</p>
+          </div>
+        </div>
       </div>
+    </div>
+  </section>
 
-    </section><!-- /How We Work Section -->
-
-    <!-- Services Section -->
-    <section id="services" class="services section">
-
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
+  <section id="services">
+    <div class="container">
+      <header class="section-header">
         <h2>Services</h2>
-        <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
-      </div><!-- End Section Title -->
-
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
-
-        <div class="row justify-content-center g-5">
-
-          <div class="col-md-6" data-aos="fade-right" data-aos-delay="100">
-            <div class="service-item">
-              <div class="service-icon">
-                <i class="bi bi-code-slash"></i>
-              </div>
-              <div class="service-content">
-                <h3>Custom Web Development</h3>
-                <p>Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Nulla quis lorem ut libero malesuada feugiat. Curabitur non nulla sit amet nisl tempus convallis. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                <a href="#" class="service-link">
-                  <span>Learn More</span>
-                  <i class="bi bi-arrow-right"></i>
-                </a>
-              </div>
-            </div>
-          </div><!-- End Service Item -->
-
-          <div class="col-md-6" data-aos="fade-left" data-aos-delay="100">
-            <div class="service-item">
-              <div class="service-icon">
-                <i class="bi bi-phone-fill"></i>
-              </div>
-              <div class="service-content">
-                <h3>Mobile App Solutions</h3>
-                <p>Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Vivamus magna justo, lacinia eget consectetur sed. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Donec rutrum congue leo eget malesuada.</p>
-                <a href="#" class="service-link">
-                  <span>Learn More</span>
-                  <i class="bi bi-arrow-right"></i>
-                </a>
-              </div>
-            </div>
-          </div><!-- End Service Item -->
-
-          <div class="col-md-6" data-aos="fade-right" data-aos-delay="200">
-            <div class="service-item">
-              <div class="service-icon">
-                <i class="bi bi-palette2"></i>
-              </div>
-              <div class="service-content">
-                <h3>UI/UX Design</h3>
-                <p>Pellentesque in ipsum id orci porta dapibus. Proin eget tortor risus. Vivamus suscipit tortor eget felis porttitor volutpat. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui.</p>
-                <a href="#" class="service-link">
-                  <span>Learn More</span>
-                  <i class="bi bi-arrow-right"></i>
-                </a>
-              </div>
-            </div>
-          </div><!-- End Service Item -->
-
-          <div class="col-md-6" data-aos="fade-left" data-aos-delay="200">
-            <div class="service-item">
-              <div class="service-icon">
-                <i class="bi bi-bar-chart-line"></i>
-              </div>
-              <div class="service-content">
-                <h3>Digital Marketing</h3>
-                <p>Donec rutrum congue leo eget malesuada. Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Nulla porttitor accumsan tincidunt. Curabitur aliquet quam id dui posuere blandit.</p>
-                <a href="#" class="service-link">
-                  <span>Learn More</span>
-                  <i class="bi bi-arrow-right"></i>
-                </a>
-              </div>
-            </div>
-          </div><!-- End Service Item -->
-
-          <div class="col-md-6" data-aos="fade-right" data-aos-delay="300">
-            <div class="service-item">
-              <div class="service-icon">
-                <i class="bi bi-cloud-check"></i>
-              </div>
-              <div class="service-content">
-                <h3>Cloud Computing</h3>
-                <p>Curabitur aliquet quam id dui posuere blandit. Sed porttitor lectus nibh. Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus. Nulla quis lorem ut libero malesuada feugiat.</p>
-                <a href="#" class="service-link">
-                  <span>Learn More</span>
-                  <i class="bi bi-arrow-right"></i>
-                </a>
-              </div>
-            </div>
-          </div><!-- End Service Item -->
-
-          <div class="col-md-6" data-aos="fade-left" data-aos-delay="300">
-            <div class="service-item">
-              <div class="service-icon">
-                <i class="bi bi-shield-lock"></i>
-              </div>
-              <div class="service-content">
-                <h3>Cybersecurity Solutions</h3>
-                <p>Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Donec sollicitudin molestie malesuada. Curabitur arcu erat, accumsan id imperdiet et. Proin eget tortor risus.</p>
-                <a href="#" class="service-link">
-                  <span>Learn More</span>
-                  <i class="bi bi-arrow-right"></i>
-                </a>
-              </div>
-            </div>
-          </div><!-- End Service Item -->
-
-        </div>
-
-      </div>
-
-    </section><!-- /Services Section -->
-
-    <!-- Services Alt Section -->
-    <section id="services-alt" class="services-alt section">
-
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
-
-        <div class="row">
-          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
-            <div class="content-block">
-              <h6 class="subtitle">Our innovative services</h6>
-              <h2 class="title">Our customers excel in technology management</h2>
-              <p class="description">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum tincidunt diam et gravida consequat. Sed nec mauris quis lacus commodo lobortis. Suspendisse euismod commodo sem, in finibus purus bibendum et. Morbi eu neque sed velit convallis vestibulum a vel odio.
-              </p>
-              <div class="button-wrapper">
-                <a class="btn" href="services.html"><span>Explore All Services</span></a>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-6">
-            <div class="services-list">
-              <div class="service-item d-flex align-items-center" data-aos="fade-up" data-aos-delay="200">
-                <div class="service-icon">
-                  <i class="bi bi-code-square"></i>
-                </div>
-                <div class="service-content">
-                  <h4><a href="service-details.html">Software Engineering</a></h4>
-                  <p>Lorem ipsum dolor sit amet consectetur adipiscing.</p>
-                </div>
-              </div><!-- End Service Item -->
-
-              <div class="service-item d-flex align-items-center" data-aos="fade-up" data-aos-delay="300">
-                <div class="service-icon">
-                  <i class="bi bi-graph-up"></i>
-                </div>
-                <div class="service-content">
-                  <h4><a href="service-details.html">Business Analytics</a></h4>
-                  <p>Lorem ipsum dolor sit amet consectetur adipiscing.</p>
-                </div>
-              </div><!-- End Service Item -->
-
-              <div class="service-item d-flex align-items-center" data-aos="fade-up" data-aos-delay="400">
-                <div class="service-icon">
-                  <i class="bi bi-phone"></i>
-                </div>
-                <div class="service-content">
-                  <h4><a href="service-details.html">Mobile Solutions</a></h4>
-                  <p>Lorem ipsum dolor sit amet consectetur adipiscing.</p>
-                </div>
-              </div><!-- End Service Item -->
-
-              <div class="service-item d-flex align-items-center" data-aos="fade-up" data-aos-delay="500">
-                <div class="service-icon">
-                  <i class="bi bi-gear"></i>
-                </div>
-                <div class="service-content">
-                  <h4><a href="service-details.html">Tech Infrastructure</a></h4>
-                  <p>Lorem ipsum dolor sit amet consectetur adipiscing.</p>
-                </div>
-              </div><!-- End Service Item -->
-            </div>
+        <p>Comprehensive solutions for smartphone repair shops</p>
+      </header>
+      <div class="row">
+        <div class="col-lg-4 col-md-6">
+          <div class="service-box">
+            <h3>Screen & LCD Supply</h3>
+            <p>We provide high-quality LCD screens for brands like iPhone, Samsung, Oppo, Vivo, and more, ensuring vibrant displays and durability.</p>
+            <a href="#contact" class="learn-more">Learn More</a>
           </div>
         </div>
-
-      </div>
-
-    </section><!-- /Services Alt Section -->
-
-    <!-- Call To Action 2 Section -->
-    <section id="call-to-action-2" class="call-to-action-2 section light-background">
-
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
-
-        <div class="row g-5 align-items-center">
-          <div class="col-lg-6" data-aos="fade-right" data-aos-delay="200">
-            <div class="cta-image-wrapper">
-              <img src="assets/img/cta/cta-4.webp" alt="Call to Action" class="img-fluid rounded-4">
-              <div class="cta-pattern"></div>
-            </div>
+        <div class="col-lg-4 col-md-6">
+          <div class="service-box">
+            <h3>Battery Solutions</h3>
+            <p>Our Kupei batteries and other high-performance options offer reliable power and longevity at competitive prices.</p>
+            <a href="#contact" class="learn-more">Learn More</a>
           </div>
+        </div>
+        <div class="col-lg-4 col-md-6">
+          <div class="service-box">
+            <h3>Charging & Power Components</h3>
+            <p>We supply charging boards and power switches for seamless functionality across multiple smartphone brands.</p>
+            <a href="#contact" class="learn-more">Learn More</a>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6">
+          <div class="service-box">
+            <h3>Housing & Back Glass</h3>
+            <p>Full housing sets and back glass replacements to restore devices to their original look and feel.</p>
+            <a href="#contact" class="learn-more">Learn More</a>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6">
+          <div class="service-box">
+            <h3>Online Retail Support</h3>
+            <p>We’re expanding to Shopee, Lazada, TikTok, and Xiaohongshu to make our parts accessible nationwide.</p>
+            <a href="#contact" class="learn-more">Learn More</a>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6">
+          <div class="service-box">
+            <h3>Bulk Wholesale Orders</h3>
+            <p>Customized bulk orders for repair shops with over 300 clients in KL/Selangor, ensuring cost-effective solutions.</p>
+            <a href="#contact" class="learn-more">Learn More</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-          <div class="col-lg-6" data-aos="fade-left" data-aos-delay="300">
-            <div class="cta-content">
-              <h2>Transform Your Vision Into Reality Today</h2>
-              <p class="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.</p>
-
-              <div class="cta-features">
-                <div class="feature-item" data-aos="zoom-in" data-aos-delay="400">
-                  <i class="bi bi-check-circle-fill"></i>
-                  <span>Lorem ipsum dolor sit amet consectetur</span>
-                </div>
-                <div class="feature-item" data-aos="zoom-in" data-aos-delay="450">
-                  <i class="bi bi-check-circle-fill"></i>
-                  <span>Praesent eget risus vitae massa</span>
-                </div>
-                <div class="feature-item" data-aos="zoom-in" data-aos-delay="500">
-                  <i class="bi bi-check-circle-fill"></i>
-                  <span>Aenean pretium nisi vel pulvinar</span>
-                </div>
+  <section id="more-services">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6">
+          <h2>Our innovative services</h2>
+          <h3>Empowering repair shops with quality and speed</h3>
+          <p>VVINZ TOP CELLSPARE Sdn Bhd serves over 300 repair shops in KL/Selangor with premium parts and rapid delivery. Our partnerships with brands like Kupei and plans for online expansion ensure we meet the evolving needs of the repair industry.</p>
+          <a href="#services" class="btn-explore">Explore All Services</a>
+        </div>
+        <div class="col-lg-6">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="service-item">
+                <h4>Screen Replacement Parts</h4>
+                <p>High-quality LCDs and touchscreens for all major smartphone brands.</p>
               </div>
-
-              <div class="cta-action mt-5">
-                <a href="#" class="btn btn-primary btn-lg me-3">Get Started</a>
-                <a href="#" class="btn btn-outline-primary btn-lg">Learn More</a>
+            </div>
+            <div class="col-md-6">
+              <div class="service-item">
+                <h4>Battery Supply</h4>
+                <p>Reliable batteries from trusted brands like Kupei for long-lasting performance.</p>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="service-item">
+                <h4>Housing Solutions</h4>
+                <p>Full housing and back glass for a complete device refresh.</p>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="service-item">
+                <h4>Wholesale Partnerships</h4>
+                <p>Bulk supply for repair shops with competitive pricing and fast delivery.</p>
               </div>
             </div>
           </div>
         </div>
-
       </div>
+    </div>
+  </section>
 
-    </section><!-- /Call To Action 2 Section -->
+  <section id="call-to-action">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6">
+          <img src="assets/img/cta-img.jpg" alt="Call to Action">
+        </div>
+        <div class="col-lg-6">
+          <h2>Transform Your Repair Business Today</h2>
+          <p>Join over 300 repair shops in KL/Selangor that trust VVINZ TOP CELLSPARE for high-quality parts and rapid delivery.</p>
+          <ul>
+            <li>Access premium parts for all major smartphone brands.</li>
+            <li>Benefit from our 30-minute delivery promise.</li>
+            <li>Partner with us for reliable, cost-effective solutions.</li>
+          </ul>
+          <a href="#contact" class="btn-get-started">Get Started</a>
+          <a href="#services" class="btn-learn-more">Learn More</a>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <!-- Portfolio Section -->
-    <section id="portfolio" class="portfolio section">
-
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
+  <section id="portfolio">
+    <div class="container">
+      <header class="section-header">
         <h2>Portfolio</h2>
-        <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
-      </div><!-- End Section Title -->
-
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
-
-        <div class="isotope-layout" data-default-filter="*" data-layout="masonry" data-sort="original-order">
-
-          <div class="portfolio-filters-container" data-aos="fade-up" data-aos-delay="200">
-            <ul class="portfolio-filters isotope-filters">
-              <li data-filter="*" class="filter-active">All Work</li>
-              <li data-filter=".filter-web">Web Design</li>
-              <li data-filter=".filter-graphics">Graphics</li>
-              <li data-filter=".filter-motion">Motion</li>
-              <li data-filter=".filter-brand">Branding</li>
-            </ul>
-          </div>
-
-          <div class="row g-4 isotope-container" data-aos="fade-up" data-aos-delay="300">
-
-            <div class="col-lg-6 col-md-6 portfolio-item isotope-item filter-web">
-              <div class="portfolio-card">
-                <div class="portfolio-image">
-                  <img src="assets/img/portfolio/portfolio-1.webp" class="img-fluid" alt="" loading="lazy">
-                  <div class="portfolio-overlay">
-                    <div class="portfolio-actions">
-                      <a href="assets/img/portfolio/portfolio-1.webp" class="glightbox preview-link" data-gallery="portfolio-gallery-web"><i class="bi bi-eye"></i></a>
-                      <a href="portfolio-details.html" class="details-link"><i class="bi bi-arrow-right"></i></a>
-                    </div>
-                  </div>
-                </div>
-                <div class="portfolio-content">
-                  <span class="category">Web Design</span>
-                  <h3>Modern Dashboard Interface</h3>
-                  <p>Maecenas faucibus mollis interdum sed posuere consectetur est at lobortis.</p>
-                </div>
-              </div>
-            </div><!-- End Portfolio Item -->
-
-            <div class="col-lg-6 col-md-6 portfolio-item isotope-item filter-graphics">
-              <div class="portfolio-card">
-                <div class="portfolio-image">
-                  <img src="assets/img/portfolio/portfolio-10.webp" class="img-fluid" alt="" loading="lazy">
-                  <div class="portfolio-overlay">
-                    <div class="portfolio-actions">
-                      <a href="assets/img/portfolio/portfolio-10.webp" class="glightbox preview-link" data-gallery="portfolio-gallery-graphics"><i class="bi bi-eye"></i></a>
-                      <a href="portfolio-details.html" class="details-link"><i class="bi bi-arrow-right"></i></a>
-                    </div>
-                  </div>
-                </div>
-                <div class="portfolio-content">
-                  <span class="category">Graphics</span>
-                  <h3>Creative Brand Identity</h3>
-                  <p>Vestibulum id ligula porta felis euismod semper at vulputate.</p>
-                </div>
-              </div>
-            </div><!-- End Portfolio Item -->
-
-            <div class="col-lg-6 col-md-6 portfolio-item isotope-item filter-motion">
-              <div class="portfolio-card">
-                <div class="portfolio-image">
-                  <img src="assets/img/portfolio/portfolio-7.webp" class="img-fluid" alt="" loading="lazy">
-                  <div class="portfolio-overlay">
-                    <div class="portfolio-actions">
-                      <a href="assets/img/portfolio/portfolio-7.webp" class="glightbox preview-link" data-gallery="portfolio-gallery-motion"><i class="bi bi-eye"></i></a>
-                      <a href="portfolio-details.html" class="details-link"><i class="bi bi-arrow-right"></i></a>
-                    </div>
-                  </div>
-                </div>
-                <div class="portfolio-content">
-                  <span class="category">Motion</span>
-                  <h3>Product Animation Reel</h3>
-                  <p>Donec ullamcorper nulla non metus auctor fringilla dapibus.</p>
-                </div>
-              </div>
-            </div><!-- End Portfolio Item -->
-
-            <div class="col-lg-6 col-md-6 portfolio-item isotope-item filter-brand">
-              <div class="portfolio-card">
-                <div class="portfolio-image">
-                  <img src="assets/img/portfolio/portfolio-4.webp" class="img-fluid" alt="" loading="lazy">
-                  <div class="portfolio-overlay">
-                    <div class="portfolio-actions">
-                      <a href="assets/img/portfolio/portfolio-4.webp" class="glightbox preview-link" data-gallery="portfolio-gallery-brand"><i class="bi bi-eye"></i></a>
-                      <a href="portfolio-details.html" class="details-link"><i class="bi bi-arrow-right"></i></a>
-                    </div>
-                  </div>
-                </div>
-                <div class="portfolio-content">
-                  <span class="category">Branding</span>
-                  <h3>Luxury Brand Package</h3>
-                  <p>Aenean lacinia bibendum nulla sed consectetur elit.</p>
-                </div>
-              </div>
-            </div><!-- End Portfolio Item -->
-
-            <div class="col-lg-6 col-md-6 portfolio-item isotope-item filter-web">
-              <div class="portfolio-card">
-                <div class="portfolio-image">
-                  <img src="assets/img/portfolio/portfolio-2.webp" class="img-fluid" alt="" loading="lazy">
-                  <div class="portfolio-overlay">
-                    <div class="portfolio-actions">
-                      <a href="assets/img/portfolio/portfolio-2.webp" class="glightbox preview-link" data-gallery="portfolio-gallery-web"><i class="bi bi-eye"></i></a>
-                      <a href="portfolio-details.html" class="details-link"><i class="bi bi-arrow-right"></i></a>
-                    </div>
-                  </div>
-                </div>
-                <div class="portfolio-content">
-                  <span class="category">Web Design</span>
-                  <h3>E-commerce Platform</h3>
-                  <p>Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                </div>
-              </div>
-            </div><!-- End Portfolio Item -->
-
-            <div class="col-lg-6 col-md-6 portfolio-item isotope-item filter-graphics">
-              <div class="portfolio-card">
-                <div class="portfolio-image">
-                  <img src="assets/img/portfolio/portfolio-11.webp" class="img-fluid" alt="" loading="lazy">
-                  <div class="portfolio-overlay">
-                    <div class="portfolio-actions">
-                      <a href="assets/img/portfolio/portfolio-11.webp" class="glightbox preview-link" data-gallery="portfolio-gallery-graphics"><i class="bi bi-eye"></i></a>
-                      <a href="portfolio-details.html" class="details-link"><i class="bi bi-arrow-right"></i></a>
-                    </div>
-                  </div>
-                </div>
-                <div class="portfolio-content">
-                  <span class="category">Graphics</span>
-                  <h3>Digital Art Collection</h3>
-                  <p>Cras mattis consectetur purus sit amet fermentum.</p>
-                </div>
-              </div>
-            </div><!-- End Portfolio Item -->
-
-          </div><!-- End Portfolio Container -->
-
-        </div>
-
+        <p>Showcasing our range of high-quality smartphone spare parts</p>
+      </header>
+      <div class="portfolio-filters">
+        <ul>
+          <li class="filter-active">All Work</li>
+          <li>Screen Parts</li>
+          <li>Batteries</li>
+          <li>Housing</li>
+          <li>Accessories</li>
+        </ul>
       </div>
+      <div class="row portfolio-container">
+        <div class="col-lg-4 col-md-6 portfolio-item">
+          <div class="portfolio-wrap">
+            <img src="assets/img/portfolio/lcd-screen.jpg" alt="LCD Screen">
+            <div class="portfolio-info">
+              <h4>Screen Parts</h4>
+              <h5>iPhone LCD Replacement</h5>
+              <p>High-quality LCD screens for iPhone models, ensuring vibrant displays and touch sensitivity.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6 portfolio-item">
+          <div class="portfolio-wrap">
+            <img src="assets/img/portfolio/battery.jpg" alt="Battery">
+            <div class="portfolio-info">
+              <h4>Batteries</h4>
+              <h5>Kupei Battery for Samsung</h5>
+              <p>Reliable, long-lasting batteries from Kupei, trusted by repair shops nationwide.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6 portfolio-item">
+          <div class="portfolio-wrap">
+            <img src="assets/img/portfolio/housing.jpg" alt="Housing">
+            <div class="portfolio-info">
+              <h4>Housing</h4>
+              <h5>Huawei Full Housing Set</h5>
+              <p>Complete housing sets for Huawei devices, restoring original look and feel.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6 portfolio-item">
+          <div class="portfolio-wrap">
+            <img src="assets/img/portfolio/charging-board.jpg" alt="Charging Board">
+            <div class="portfolio-info">
+              <h4>Accessories</h4>
+              <h5>Oppo Charging Board</h5>
+              <p>High-performance charging boards for seamless power delivery.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6 portfolio-item">
+          <div class="portfolio-wrap">
+            <img src="assets/img/portfolio/back-glass.jpg" alt="Back Glass">
+            <div class="portfolio-info">
+              <h4>Housing</h4>
+              <h5>Xiaomi Back Glass</h5>
+              <p>Durable back glass replacements for Xiaomi devices at affordable prices.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6 portfolio-item">
+          <div class="portfolio-wrap">
+            <img src="assets/img/portfolio/power-switch.jpg" alt="Power Switch">
+            <div class="portfolio-info">
+              <h4>Accessories</h4>
+              <h5>Vivo Power Switch</h5>
+              <p>Reliable power switches for Vivo devices, ensuring smooth operation.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    </section><!-- /Portfolio Section -->
-
-    <!-- Pricing Section -->
-    <section id="pricing" class="pricing section light-background">
-
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
+  <section id="pricing">
+    <div class="container">
+      <header class="section-header">
         <h2>Pricing</h2>
-        <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
-      </div><!-- End Section Title -->
-
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
-
-        <div class="row g-4 justify-content-center">
-
-          <!-- Basic Plan -->
-          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
-            <div class="pricing-card">
-              <h3>Basic Plan</h3>
-              <div class="price">
-                <span class="currency">$</span>
-                <span class="amount">9.9</span>
-                <span class="period">/ month</span>
-              </div>
-              <p class="description">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium totam.</p>
-
-              <h4>Featured Included:</h4>
-              <ul class="features-list">
-                <li>
-                  <i class="bi bi-check-circle-fill"></i>
-                  Duis aute irure dolor
-                </li>
-                <li>
-                  <i class="bi bi-check-circle-fill"></i>
-                  Excepteur sint occaecat
-                </li>
-                <li>
-                  <i class="bi bi-check-circle-fill"></i>
-                  Nemo enim ipsam voluptatem
-                </li>
-              </ul>
-
-              <a href="#" class="btn btn-primary">
-                Buy Now
-                <i class="bi bi-arrow-right"></i>
-              </a>
-            </div>
-          </div>
-
-          <!-- Standard Plan -->
-          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
-            <div class="pricing-card popular">
-              <div class="popular-badge">Most Popular</div>
-              <h3>Standard Plan</h3>
-              <div class="price">
-                <span class="currency">$</span>
-                <span class="amount">19.9</span>
-                <span class="period">/ month</span>
-              </div>
-              <p class="description">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum.</p>
-
-              <h4>Featured Included:</h4>
-              <ul class="features-list">
-                <li>
-                  <i class="bi bi-check-circle-fill"></i>
-                  Lorem ipsum dolor sit amet
-                </li>
-                <li>
-                  <i class="bi bi-check-circle-fill"></i>
-                  Consectetur adipiscing elit
-                </li>
-                <li>
-                  <i class="bi bi-check-circle-fill"></i>
-                  Sed do eiusmod tempor
-                </li>
-                <li>
-                  <i class="bi bi-check-circle-fill"></i>
-                  Ut labore et dolore magna
-                </li>
-              </ul>
-
-              <a href="#" class="btn btn-light">
-                Buy Now
-                <i class="bi bi-arrow-right"></i>
-              </a>
-            </div>
-          </div>
-
-          <!-- Premium Plan -->
-          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="300">
-            <div class="pricing-card">
-              <h3>Premium Plan</h3>
-              <div class="price">
-                <span class="currency">$</span>
-                <span class="amount">39.9</span>
-                <span class="period">/ month</span>
-              </div>
-              <p class="description">Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae.</p>
-
-              <h4>Featured Included:</h4>
-              <ul class="features-list">
-                <li>
-                  <i class="bi bi-check-circle-fill"></i>
-                  Temporibus autem quibusdam
-                </li>
-                <li>
-                  <i class="bi bi-check-circle-fill"></i>
-                  Saepe eveniet ut et voluptates
-                </li>
-                <li>
-                  <i class="bi bi-check-circle-fill"></i>
-                  Nam libero tempore soluta
-                </li>
-                <li>
-                  <i class="bi bi-check-circle-fill"></i>
-                  Cumque nihil impedit quo
-                </li>
-                <li>
-                  <i class="bi bi-check-circle-fill"></i>
-                  Maxime placeat facere possimus
-                </li>
-              </ul>
-
-              <a href="#" class="btn btn-primary">
-                Buy Now
-                <i class="bi bi-arrow-right"></i>
-              </a>
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-
-    </section><!-- /Pricing Section -->
-
-    <!-- Faq Section -->
-    <section id="faq" class="faq section">
-
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
-
-        <div class="row gy-5">
-          <div class="col-lg-6" data-aos="zoom-out" data-aos-delay="200">
-            <div class="faq-contact-card">
-              <div class="card-icon">
-                <i class="bi bi-question-circle"></i>
-              </div>
-              <div class="card-content">
-                <h3>Still Have Questions?</h3>
-                <p>Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec velit neque, auctor sit amet aliquam vel, ullamcorper sit amet ligula. Vestibulum ac diam sit amet quam vehicula elementum.</p>
-                <div class="contact-options">
-                  <a href="#" class="contact-option">
-                    <i class="bi bi-envelope"></i>
-                    <span>Email Support</span>
-                  </a>
-                  <a href="#" class="contact-option">
-                    <i class="bi bi-chat-dots"></i>
-                    <span>Live Chat</span>
-                  </a>
-                  <a href="#" class="contact-option">
-                    <i class="bi bi-telephone"></i>
-                    <span>Call Us</span>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="300">
-            <div class="faq-accordion">
-              <div class="faq-item faq-active">
-                <div class="faq-header">
-                  <h3>Vivamus suscipit tortor eget felis porttitor volutpat?</h3>
-                  <i class="bi bi-chevron-down faq-toggle"></i>
-                </div>
-                <div class="faq-content">
-                  <p>
-                    Nulla quis lorem ut libero malesuada feugiat. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Curabitur aliquet quam id dui posuere blandit. Nulla porttitor accumsan tincidunt.
-                  </p>
-                </div>
-              </div><!-- End FAQ Item-->
-
-              <div class="faq-item" data-aos="zoom-in" data-aos-delay="200">
-                <div class="faq-header">
-                  <h3>Curabitur aliquet quam id dui posuere blandit?</h3>
-                  <i class="bi bi-chevron-down faq-toggle"></i>
-                </div>
-                <div class="faq-content">
-                  <p>
-                    Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec velit neque, auctor sit amet aliquam vel, ullamcorper sit amet ligula. Proin eget tortor risus. Mauris blandit aliquet elit, eget tincidunt nibh pulvinar.
-                  </p>
-                </div>
-              </div><!-- End FAQ Item-->
-
-              <div class="faq-item">
-                <div class="faq-header">
-                  <h3>Sed porttitor lectus nibh ullamcorper sit amet?</h3>
-                  <i class="bi bi-chevron-down faq-toggle"></i>
-                </div>
-                <div class="faq-content">
-                  <p>
-                    Curabitur non nulla sit amet nisl tempus convallis quis ac lectus. Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Donec sollicitudin molestie malesuada. Vestibulum ac diam sit amet quam vehicula elementum.
-                  </p>
-                </div>
-              </div><!-- End FAQ Item-->
-
-              <div class="faq-item">
-                <div class="faq-header">
-                  <h3>Nulla quis lorem ut libero malesuada feugiat?</h3>
-                  <i class="bi bi-chevron-down faq-toggle"></i>
-                </div>
-                <div class="faq-content">
-                  <p>
-                    Donec sollicitudin molestie malesuada. Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec velit neque, auctor sit amet aliquam vel.
-                  </p>
-                </div>
-              </div><!-- End FAQ Item-->
-            </div>
+        <p>Flexible plans for repair shops of all sizes</p>
+      </header>
+      <div class="row">
+        <div class="col-lg-4 col-md-6">
+          <div class="pricing-box">
+            <h3>Basic Plan</h3>
+            <h4><sup>RM</sup>99<span>/ month</span></h4>
+            <p>Ideal for small repair shops with standard part requirements.</p>
+            <ul>
+              <li>Access to core inventory (LCDs, batteries)</li>
+              <li>30-minute delivery in KL/Selangor</li>
+              <li>Email support</li>
+            </ul>
+            <a href="#contact" class="btn-buy">Buy Now</a>
           </div>
         </div>
-
+        <div class="col-lg-4 col-md-6">
+          <div class="pricing-box">
+            <h3>Standard Plan</h3>
+            <h4><sup>RM</sup>199<span>/ month</span></h4>
+            <p>Perfect for growing repair shops with diverse needs.</p>
+            <ul>
+              <li>Full inventory access (LCDs, batteries, housing)</li>
+              <li>Priority 30-minute delivery</li>
+              <li>Email and phone support</li>
+              <li>Discounted bulk orders</li>
+            </ul>
+            <a href="#contact" class="btn-buy">Buy Now</a>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6">
+          <div class="pricing-box">
+            <h3>Premium Plan</h3>
+            <h4><sup>RM</sup>399<span>/ month</span></h4>
+            <p>Tailored for large repair chains with high-volume needs.</p>
+            <ul>
+              <li>Complete inventory access</li>
+              <li>Express delivery and dedicated logistics</li>
+              <li>24/7 support (email, phone, chat)</li>
+              <li>Custom bulk order discounts</li>
+              <li>Exclusive access to new parts</li>
+            </ul>
+            <a href="#contact" class="btn-buy">Buy Now</a>
+          </div>
+        </div>
       </div>
+    </div>
+  </section>
 
-    </section><!-- /Faq Section -->
+  <section id="faq">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6">
+          <h3>Still Have Questions?</h3>
+          <p>Contact our team for personalized assistance or explore our FAQs for quick answers.</p>
+          <ul>
+            <li>Email Support</li>
+            <li>Live Chat</li>
+            <li>Call Us</li>
+          </ul>
+        </div>
+        <div class="col-lg-6">
+          <div class="faq-item">
+            <h4>What brands do you supply parts for?</h4>
+            <p>We provide parts for iPhone, iPad, Samsung, Huawei, Oppo, Realme, Vivo, Xiaomi, OnePlus, and more.</p>
+          </div>
+          <div class="faq-item">
+            <h4>How fast is your delivery?</h4>
+            <p>Our branches in Sungai Buloh, Rawang, Subang, and Kepong ensure delivery within 30 minutes in KL/Selangor.</p>
+          </div>
+          <div class="faq-item">
+            <h4>Are your parts original?</h4>
+            <p>Our mid-to-high-end parts match OEM quality but are priced more affordably, offering great value.</p>
+          </div>
+          <div class="faq-item">
+            <h4>Do you offer bulk discounts?</h4>
+            <p>Yes, our Standard and Premium plans include bulk order discounts for repair shops.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <!-- Team Section -->
-    <section id="team" class="team section light-background">
-
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
+  <section id="team">
+    <div class="container">
+      <header class="section-header">
         <h2>Team</h2>
-        <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
-      </div><!-- End Section Title -->
-
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
-
-        <div class="row g-5">
-
-          <div class="col-md-6 col-lg-3" data-aos="zoom-in" data-aos-delay="100">
-            <div class="team-card">
-              <div class="team-image">
-                <img src="assets/img/person/person-m-1.webp" class="img-fluid" alt="">
-                <div class="team-overlay">
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit, vulputate eu pharetra nec, mattis ac neque.</p>
-                  <div class="team-social">
-                    <a href=""><i class="bi bi-twitter-x"></i></a>
-                    <a href=""><i class="bi bi-facebook"></i></a>
-                    <a href=""><i class="bi bi-instagram"></i></a>
-                    <a href=""><i class="bi bi-linkedin"></i></a>
-                  </div>
-                </div>
-              </div>
-              <div class="team-content">
-                <h4>Daniel Mitchell</h4>
-                <span class="position">Creative Director</span>
-              </div>
-            </div>
-          </div><!-- End Team Member -->
-
-          <div class="col-md-6 col-lg-3" data-aos="zoom-in" data-aos-delay="200">
-            <div class="team-card">
-              <div class="team-image">
-                <img src="assets/img/person/person-f-6.webp" class="img-fluid" alt="">
-                <div class="team-overlay">
-                  <p>Aliquam tincidunt mauris eu risus. Vestibulum auctor dapibus neque. Nunc dignissim risus id metus.</p>
-                  <div class="team-social">
-                    <a href=""><i class="bi bi-twitter-x"></i></a>
-                    <a href=""><i class="bi bi-facebook"></i></a>
-                    <a href=""><i class="bi bi-instagram"></i></a>
-                    <a href=""><i class="bi bi-linkedin"></i></a>
-                  </div>
-                </div>
-              </div>
-              <div class="team-content">
-                <h4>Rebecca Taylor</h4>
-                <span class="position">Lead Developer</span>
-              </div>
-            </div>
-          </div><!-- End Team Member -->
-
-          <div class="col-md-6 col-lg-3" data-aos="zoom-in" data-aos-delay="300">
-            <div class="team-card">
-              <div class="team-image">
-                <img src="assets/img/person/person-m-6.webp" class="img-fluid" alt="">
-                <div class="team-overlay">
-                  <p>Cras ornare tristique elit. Integer in dui quis est placerat ornare. Phasellus a lacus a risus.</p>
-                  <div class="team-social">
-                    <a href=""><i class="bi bi-twitter-x"></i></a>
-                    <a href=""><i class="bi bi-facebook"></i></a>
-                    <a href=""><i class="bi bi-instagram"></i></a>
-                    <a href=""><i class="bi bi-linkedin"></i></a>
-                  </div>
-                </div>
-              </div>
-              <div class="team-content">
-                <h4>Marcus Johnson</h4>
-                <span class="position">UI/UX Designer</span>
-              </div>
-            </div>
-          </div><!-- End Team Member -->
-
-          <div class="col-md-6 col-lg-3" data-aos="zoom-in" data-aos-delay="400">
-            <div class="team-card">
-              <div class="team-image">
-                <img src="assets/img/person/person-f-3.webp" class="img-fluid" alt="">
-                <div class="team-overlay">
-                  <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
-                  <div class="team-social">
-                    <a href=""><i class="bi bi-twitter-x"></i></a>
-                    <a href=""><i class="bi bi-facebook"></i></a>
-                    <a href=""><i class="bi bi-instagram"></i></a>
-                    <a href=""><i class="bi bi-linkedin"></i></a>
-                  </div>
-                </div>
-              </div>
-              <div class="team-content">
-                <h4>Jessica Parker</h4>
-                <span class="position">Marketing Strategist</span>
-              </div>
-            </div>
-          </div><!-- End Team Member -->
-
+        <p>Meet the team driving VVINZ TOP CELLSPARE’s success</p>
+      </header>
+      <div class="row">
+        <div class="col-lg-3 col-md-6">
+          <div class="member">
+            <p>With over a decade of experience in the mobile spare parts industry, our founder leads with a vision to expand across Malaysia.</p>
+            <img src="assets/img/team/founder.jpg" alt="Founder">
+            <h4>Ahmad Zainal</h4>
+            <span>Founder & CEO</span>
+          </div>
         </div>
-
+        <div class="col-lg-3 col-md-6">
+          <div class="member">
+            <p>Oversees inventory and partnerships with brands like Kupei to ensure quality and reliability.</p>
+            <img src="assets/img/team/supply-manager.jpg" alt="Supply Manager">
+            <h4>Lina Tan</h4>
+            <span>Supply Chain Manager</span>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <div class="member">
+            <p>Manages logistics to ensure 30-minute deliveries across all branches.</p>
+            <img src="assets/img/team/logistics.jpg" alt="Logistics Manager">
+            <h4>Rajesh Kumar</h4>
+            <span>Logistics Manager</span>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <div class="member">
+            <p>Leads our online expansion on platforms like Shopee, Lazada, and TikTok.</p>
+            <img src="assets/img/team/ecommerce.jpg" alt="E-commerce Manager">
+            <h4>Siti Nur</h4>
+            <span>E-commerce Manager</span>
+          </div>
+        </div>
       </div>
+    </div>
+  </section>
 
-    </section><!-- /Team Section -->
-
-    <!-- Testimonials Section -->
-    <section id="testimonials" class="testimonials section">
-
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
+  <section id="testimonials">
+    <div class="container">
+      <header class="section-header">
         <h2>Testimonials</h2>
-        <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
-      </div><!-- End Section Title -->
-
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
-
-        <div class="testimonials-slider swiper init-swiper">
-          <script type="application/json" class="swiper-config">
-            {
-              "loop": true,
-              "speed": 800,
-              "autoplay": {
-                "delay": 5000
-              },
-              "slidesPerView": 1,
-              "spaceBetween": 30,
-              "pagination": {
-                "el": ".swiper-pagination",
-                "type": "bullets",
-                "clickable": true
-              },
-              "breakpoints": {
-                "768": {
-                  "slidesPerView": 2
-                },
-                "1200": {
-                  "slidesPerView": 3
-                }
-              }
-            }
-          </script>
-          <div class="swiper-wrapper">
-            <div class="swiper-slide">
-              <div class="testimonial-card">
-                <div class="testimonial-content">
-                  <p>
-                    <i class="bi bi-quote quote-icon"></i>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  </p>
-                </div>
-                <div class="testimonial-profile">
-                  <div class="rating">
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                  </div>
-                  <div class="profile-info">
-                    <img src="assets/img/person/person-m-8.webp" alt="Profile Image">
-                    <div>
-                      <h3>Robert Johnson</h3>
-                      <h4>Marketing Director</h4>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div><!-- End testimonial item -->
-
-            <div class="swiper-slide">
-              <div class="testimonial-card">
-                <div class="testimonial-content">
-                  <p>
-                    <i class="bi bi-quote quote-icon"></i>
-                    Proin iaculis purus consequat sem cure digni ssim donec porttitora entum suscipit rhoncus. Accusantium quam, ultricies eget id, aliquam eget nibh et maecenas aliquam.
-                  </p>
-                </div>
-                <div class="testimonial-profile">
-                  <div class="rating">
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                  </div>
-                  <div class="profile-info">
-                    <img src="assets/img/person/person-f-3.webp" alt="Profile Image">
-                    <div>
-                      <h3>Lisa Williams</h3>
-                      <h4>Product Manager</h4>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div><!-- End testimonial item -->
-
-            <div class="swiper-slide">
-              <div class="testimonial-card">
-                <div class="testimonial-content">
-                  <p>
-                    <i class="bi bi-quote quote-icon"></i>
-                    Enim nisi quem export duis labore cillum quae magna enim sint quorum nulla quem veniam duis minim tempor labore quem eram duis noster aute amet eram.
-                  </p>
-                </div>
-                <div class="testimonial-profile">
-                  <div class="rating">
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                  </div>
-                  <div class="profile-info">
-                    <img src="assets/img/person/person-f-10.webp" alt="Profile Image">
-                    <div>
-                      <h3>Emma Parker</h3>
-                      <h4>UX Designer</h4>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div><!-- End testimonial item -->
-
-            <div class="swiper-slide">
-              <div class="testimonial-card">
-                <div class="testimonial-content">
-                  <p>
-                    <i class="bi bi-quote quote-icon"></i>
-                    Fugiat enim eram quae cillum dolore dolor amet nulla culpa multos export minim fugiat minim velit minim dolor enim duis veniam ipsum anim magna sunt elit.
-                  </p>
-                </div>
-                <div class="testimonial-profile">
-                  <div class="rating">
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                  </div>
-                  <div class="profile-info">
-                    <img src="assets/img/person/person-m-5.webp" alt="Profile Image">
-                    <div>
-                      <h3>David Miller</h3>
-                      <h4>Senior Developer</h4>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div><!-- End testimonial item -->
-
-            <div class="swiper-slide">
-              <div class="testimonial-card">
-                <div class="testimonial-content">
-                  <p>
-                    <i class="bi bi-quote quote-icon"></i>
-                    Quis quorum aliqua sint quem legam fore sunt eram irure aliqua veniam tempor noster veniam enim culpa labore duis sunt culpa nulla illum cillum fugiat.
-                  </p>
-                </div>
-                <div class="testimonial-profile">
-                  <div class="rating">
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                  </div>
-                  <div class="profile-info">
-                    <img src="assets/img/person/person-m-2.webp" alt="Profile Image">
-                    <div>
-                      <h3>Michael Davis</h3>
-                      <h4>CEO &amp; Founder</h4>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div><!-- End testimonial item -->
-
-            <div class="swiper-slide">
-              <div class="testimonial-card">
-                <div class="testimonial-content">
-                  <p>
-                    <i class="bi bi-quote quote-icon"></i>
-                    Eius ipsam praesentium dolor quaerat inventore rerum odio. Quos laudantium adipisci eius. Accusamus qui iste cupiditate sed temporibus est aspernatur.
-                  </p>
-                </div>
-                <div class="testimonial-profile">
-                  <div class="rating">
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                  </div>
-                  <div class="profile-info">
-                    <img src="assets/img/person/person-f-7.webp" alt="Profile Image">
-                    <div>
-                      <h3>Sarah Thompson</h3>
-                      <h4>Art Director</h4>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div><!-- End testimonial item -->
+        <p>What our clients say about us</p>
+      </header>
+      <div class="row">
+        <div class="col-lg-4 col-md-6">
+          <div class="testimonial-item">
+            <p>VVINZ TOP’s Kupei batteries have transformed our repair quality. Customers love the performance!</p>
+            <img src="assets/img/testimonials/client1.jpg" alt="Client">
+            <h4>Chong Wei</h4>
+            <span>Repair Shop Owner, Subang</span>
           </div>
-          <div class="swiper-pagination"></div>
         </div>
-
+        <div class="col-lg-4 col-md-6">
+          <div class="testimonial-item">
+            <p>The 30-minute delivery promise is a game-changer. We never keep customers waiting!</p>
+            <img src="assets/img/testimonials/client2.jpg" alt="Client">
+            <h4>Aminah Salleh</h4>
+            <span>Repair Shop Manager, Rawang</span>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6">
+          <div class="testimonial-item">
+            <p>Their LCD screens match OEM quality but at half the price. Highly recommended!</p>
+            <img src="assets/img/testimonials/client3.jpg" alt="Client">
+            <h4>Jason Lim</h4>
+            <span>Technician, Kepong</span>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6">
+          <div class="testimonial-item">
+            <p>VVINZ TOP’s support team always helps us find the right parts quickly.</p>
+            <img src="assets/img/testimonials/client4.jpg" alt="Client">
+            <h4>Suresh Nair</h4>
+            <span>Repair Shop Owner, Sungai Buloh</span>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6">
+          <div class="testimonial-item">
+            <p>Their bulk discounts have saved us thousands while maintaining quality.</p>
+            <img src="assets/img/testimonials/client5.jpg" alt="Client">
+            <h4>Fatimah Yusof</h4>
+            <span>Repair Chain Manager, KL</span>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6">
+          <div class="testimonial-item">
+            <p>Excited for their online store expansion. It’ll make ordering even easier!</p>
+            <img src="assets/img/testimonials/client6.jpg" alt="Client">
+            <h4>David Tan</h4>
+            <span>Repair Technician, Selangor</span>
+          </div>
+        </div>
       </div>
+    </div>
+  </section>
 
-    </section><!-- /Testimonials Section -->
-
-    <!-- Contact Section -->
-    <section id="contact" class="contact section">
-
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
+  <section id="contact">
+    <div class="container">
+      <header class="section-header">
         <h2>Contact</h2>
-        <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
-      </div><!-- End Section Title -->
-
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
-
-        <div class="row gy-4 mb-5">
-          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
-            <div class="info-card">
-              <div class="icon-box">
-                <i class="bi bi-geo-alt"></i>
-              </div>
-              <h3>Our Address</h3>
-              <p>2847 Rainbow Road, Springfield, IL 62701, USA</p>
-            </div>
-          </div>
-
-          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
-            <div class="info-card">
-              <div class="icon-box">
-                <i class="bi bi-telephone"></i>
-              </div>
-              <h3>Contact Number</h3>
-              <p>Mobile: +1 (555) 123-4567<br>
-                Email: info@example.com</p>
-            </div>
-          </div>
-
-          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="300">
-            <div class="info-card">
-              <div class="icon-box">
-                <i class="bi bi-clock"></i>
-              </div>
-              <h3>Opening Hour</h3>
-              <p>Monday - Saturday: 9:00 - 18:00<br>
-                Sunday: Closed</p>
-            </div>
+        <p>Reach out to us for all your spare parts needs</p>
+      </header>
+      <div class="row">
+        <div class="col-lg-4 col-md-6">
+          <div class="contact-box">
+            <h3>Our Address</h3>
+            <p>Lot 123, Jalan Industri, Sungai Buloh, 47000 Selangor, Malaysia</p>
           </div>
         </div>
-
-        <div class="row">
-          <div class="col-lg-12">
-            <div class="form-wrapper" data-aos="fade-up" data-aos-delay="400">
-              <form action="forms/contact.php" method="post" role="form" class="php-email-form">
-                <div class="row">
-                  <div class="col-md-6 form-group">
-                    <div class="input-group">
-                      <span class="input-group-text"><i class="bi bi-person"></i></span>
-                      <input type="text" name="name" class="form-control" placeholder="Your name*" required="">
-                    </div>
-                  </div>
-                  <div class="col-md-6 form-group">
-                    <div class="input-group">
-                      <span class="input-group-text"><i class="bi bi-envelope"></i></span>
-                      <input type="email" class="form-control" name="email" placeholder="Email address*" required="">
-                    </div>
-                  </div>
-                </div>
-                <div class="row mt-3">
-                  <div class="col-md-6 form-group">
-                    <div class="input-group">
-                      <span class="input-group-text"><i class="bi bi-phone"></i></span>
-                      <input type="text" class="form-control" name="phone" placeholder="Phone number*" required="">
-                    </div>
-                  </div>
-                  <div class="col-md-6 form-group">
-                    <div class="input-group">
-                      <span class="input-group-text"><i class="bi bi-list"></i></span>
-                      <select name="subject" class="form-control" required="">
-                        <option value="">Select service*</option>
-                        <option value="Service 1">Consulting</option>
-                        <option value="Service 2">Development</option>
-                        <option value="Service 3">Marketing</option>
-                        <option value="Service 4">Support</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div class="form-group mt-3">
-                    <div class="input-group">
-                      <span class="input-group-text"><i class="bi bi-chat-dots"></i></span>
-                      <textarea class="form-control" name="message" rows="6" placeholder="Write a message*" required=""></textarea>
-                    </div>
-                  </div>
-                  <div class="my-3">
-                    <div class="loading">Loading</div>
-                    <div class="error-message"></div>
-                    <div class="sent-message">Your message has been sent. Thank you!</div>
-                  </div>
-                  <div class="text-center">
-                    <button type="submit">Submit Message</button>
-                  </div>
-
-                </div>
-              </form>
-            </div>
+        <div class="col-lg-4 col-md-6">
+          <div class="contact-box">
+            <h3>Contact Number</h3>
+            <p>Mobile: +60 12-345 6789</p>
+            <p>Email: info@vvinztop.com</p>
           </div>
-
         </div>
-
+        <div class="col-lg-4 col-md-6">
+          <div class="contact-box">
+            <h3>Opening Hour</h3>
+            <p>Monday - Saturday: 9:00 - 18:00</p>
+            <p>Sunday: Closed</p>
+          </div>
+        </div>
       </div>
-    </section><!-- /Contact Section -->
-
-  </main>
-
-  <footer id="footer" class="footer light-background">
-
-    <div class="container footer-top">
-      <div class="row gy-4">
-        <div class="col-lg-4 col-md-6 footer-about">
-          <a href="index.html" class="logo d-flex align-items-center">
-            <span class="sitename">MyWebsite</span>
-          </a>
-          <div class="footer-contact pt-3">
-            <p>A108 Adam Street</p>
-            <p>New York, NY 535022</p>
-            <p class="mt-3"><strong>Phone:</strong> <span>+1 5589 55488 55</span></p>
-            <p><strong>Email:</strong> <span>info@example.com</span></p>
+      <div class="contact-form">
+        <form>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <input type="text" class="form-control" placeholder="Your Name">
+            </div>
+            <div class="form-group col-md-6">
+              <input type="email" class="form-control" placeholder="Your Email">
+            </div>
           </div>
-          <div class="social-links d-flex mt-4">
-            <a href=""><i class="bi bi-twitter-x"></i></a>
-            <a href=""><i class="bi bi-facebook"></i></a>
-            <a href=""><i class="bi bi-instagram"></i></a>
-            <a href=""><i class="bi bi-linkedin"></i></a>
+          <div class="form-group">
+            <input type="text" class="form-control" placeholder="Subject">
+          </div>
+          <div class="form-group">
+            <select class="form-control">
+              <option>Select service*</option>
+              <option>Bulk Orders</option>
+              <option>Part Inquiries</option>
+              <option>Delivery Support</option>
+              <option>General Questions</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <textarea class="form-control" placeholder="Message"></textarea>
+          </div>
+          <div class="form-group">
+            <p>Loading</p>
+            <p>Your message has been sent. Thank you!</p>
+            <button type="submit">Submit Message</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <footer id="footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-3 col-md-6 footer-info">
+          <h3>VVINZ TOP CELLSPARE</h3>
+          <p>Lot 123, Jalan Industri, Sungai Buloh, 47000 Selangor, Malaysia</p>
+          <p>Phone: +60 12-345 6789</p>
+          <p>Email: info@vvinztop.com</p>
+          <div class="social-links">
+            <a href="#"><i class="bi bi-twitter"></i></a>
+            <a href="#"><i class="bi bi-facebook"></i></a>
+            <a href="#"><i class="bi bi-instagram"></i></a>
+            <a href="#"><i class="bi bi-linkedin"></i></a>
           </div>
         </div>
-
-        <div class="col-lg-2 col-md-3 footer-links">
+        <div class="col-lg-2 col-md-6 footer-links">
           <h4>Useful Links</h4>
           <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">About us</a></li>
-            <li><a href="#">Services</a></li>
+            <li><a href="#header">Home</a></li>
+            <li><a href="#about">About us</a></li>
+            <li><a href="#services">Services</a></li>
             <li><a href="#">Terms of service</a></li>
             <li><a href="#">Privacy policy</a></li>
           </ul>
         </div>
-
-        <div class="col-lg-2 col-md-3 footer-links">
+        <div class="col-lg-3 col-md-6 footer-links">
           <h4>Our Services</h4>
           <ul>
-            <li><a href="#">Web Design</a></li>
-            <li><a href="#">Web Development</a></li>
-            <li><a href="#">Product Management</a></li>
-            <li><a href="#">Marketing</a></li>
-            <li><a href="#">Graphic Design</a></li>
+            <li>Screen & LCD Supply</li>
+            <li>Battery Solutions</li>
+            <li>Charging & Power Components</li>
+            <li>Housing & Back Glass</li>
+            <li>Bulk Wholesale Orders</li>
           </ul>
         </div>
-
-        <div class="col-lg-2 col-md-3 footer-links">
-          <h4>Hic solutasetp</h4>
+        <div class="col-lg-2 col-md-6 footer-links">
+          <h4>Our Branches</h4>
           <ul>
-            <li><a href="#">Molestiae accusamus iure</a></li>
-            <li><a href="#">Excepturi dignissimos</a></li>
-            <li><a href="#">Suscipit distinctio</a></li>
-            <li><a href="#">Dilecta</a></li>
-            <li><a href="#">Sit quas consectetur</a></li>
+            <li>Sungai Buloh (2014)</li>
+            <li>Rawang (2022)</li>
+            <li>Subang (2024)</li>
+            <li>Kepong (2025)</li>
           </ul>
         </div>
-
-        <div class="col-lg-2 col-md-3 footer-links">
-          <h4>Nobis illum</h4>
+        <div class="col-lg-2 col-md-6 footer-links">
+          <h4>Online Platforms</h4>
           <ul>
-            <li><a href="#">Ipsam</a></li>
-            <li><a href="#">Laudantium dolorum</a></li>
-            <li><a href="#">Dinera</a></li>
-            <li><a href="#">Trodelas</a></li>
-            <li><a href="#">Flexo</a></li>
+            <li>Shopee</li>
+            <li>Lazada</li>
+            <li>TikTok</li>
+            <li>Xiaohongshu</li>
           </ul>
         </div>
-
       </div>
     </div>
-
-    <div class="container copyright text-center mt-4">
-      <p>© <span>Copyright</span> <strong class="px-1 sitename">MyWebsite</strong> <span>All Rights Reserved</span></p>
+    <div class="container">
+      <div class="copyright">
+        © Copyright VVINZ TOP CELLSPARE All Rights Reserved
+      </div>
       <div class="credits">
-        <!-- All the links in the footer should remain intact. -->
-        <!-- You can delete the links only if you've purchased the pro version. -->
-        <!-- Licensing information: https://bootstrapmade.com/license/ -->
-        <!-- Purchase the pro version with working PHP/AJAX contact form: [buy-url] -->
         Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
       </div>
     </div>
-
   </footer>
-
-  <!-- Scroll Top -->
-  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-
-  <!-- Preloader -->
-  <div id="preloader"></div>
-
-  <!-- Vendor JS Files -->
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
-  <script src="assets/vendor/aos/aos.js"></script>
-  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
-  <script src="assets/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
-  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-
-  <!-- Main JS File -->
-  <script src="assets/js/main.js"></script>
-
 </body>
-
 </html>
