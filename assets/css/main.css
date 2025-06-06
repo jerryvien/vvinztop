@@ -2997,3 +2997,64 @@ section,
 .starter-section {
   /* Add your styles here */
 }
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Page</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Your Custom CSS -->
+    <link rel="stylesheet" href="path/to/your/style.css">
+    <style>
+        .stats-item {
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            background-color: var(--surface-color);
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+
+        .stats-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .stats-item p strong {
+            color: var(--heading-color);
+            font-weight: 700;
+        }
+
+        .stats-item p {
+            color: color-mix(in srgb, var(--default-color), transparent 30%);
+            font-size: 1rem;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="col-lg-6">
+        <div class="stats-item d-flex">
+            <i class="bi bi-journal-richtext flex-shrink-0"></i>
+            <div>
+                <span data-purecounter-start="0" data-purecounter-end="320" data-purecounter-duration="1" class="purecounter"></span>
+                <p><strong>Financing Deals</strong> tailored solutions</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS (for any Bootstrap components needing JS) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Purecounter JS -->
+    <script src="https://cdn.jsdelivr.net/npm/purecounter@1.5.0/dist/purecounter.min.js"></script>
+    <script>
+        new PureCounter();
+    </script>
+</body>
+</html>
