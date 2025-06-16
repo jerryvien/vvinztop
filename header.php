@@ -1,35 +1,38 @@
- <header id="header" class="header d-flex align-items-center fixed-top">
-    <div class="container position-relative d-flex align-items-center justify-content-between">
+<!-- header.php -->
+<header id="header" class="header fixed-top">
+  <div class="container d-flex align-items-center justify-content-between">
 
-      <a href="index.html" class="logo d-flex align-items-center me-auto me-xl-0">
-        <!-- Uncomment the line below if you also wish to use an image logo -->
-        <!-- <img src="assets/img/logo.webp" alt=""> -->
-        <h1 class="sitename">VVINZ TOP</h1><span></span>
-      </a>
+    <a href="index.php" class="logo d-flex align-items-center">
+      <img src="assets/img/logo.png" alt="">
+      <span>VVINZ TOP</span>
+    </a>
 
-      <nav id="navmenu" class="navmenu">
-        <ul>
-          <li><a href="#hero" class="active">Home</a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="#services">Services</a></li>
-          <li><a href="#team">Team</a></li>
-          
-          </li>
-          <li><a href="#contact">Contact</a></li>
-          <li class="dropdown"><a href="#"><span>Language</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
-            <ul>
+    <nav id="navbar" class="navbar">
+      <ul>
+        <li><a class="nav-link scrollto active" href="index.php">Home</a></li>
+        <li><a class="nav-link scrollto" href="#about">About</a></li>
+        <li class="dropdown"><a href="#"><span>Dropdown</span> <i class="bi bi-chevron-down"></i></a>
+          <ul>
+            <li><a href="#">Dropdown 1</a></li>
+            <li class="dropdown"><a href="#"><span>Deep Dropdown</span> <i class="bi bi-chevron-right"></i></a>
+              <ul>
+                <li><a href="#">Deep Dropdown 1</a></li>
+                <li><a href="#">Deep Dropdown 2</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><a class="getstarted scrollto" href="#about">Get Started</a></li>
+      </ul>
+      <i class="bi bi-list mobile-nav-toggle"></i>
+    </nav>
 
-              
-    
-              <li><a href="#">English</a></li>
-              <li><a href="#">中文</a></li>
-        
-            </ul>
-        </ul>
-        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
-      </nav>
+  </div>
+</header>
 
-      <a class="btn-getstarted" href="#about">Get Started</a>
-
-    </div>
-  </header>
+<!-- Bootstrap CSS -->
+<link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<!-- Icons (Bootstrap Icons) -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+<!-- Main CSS -->
+<link href="assets/css/style.css" rel="stylesheet">
