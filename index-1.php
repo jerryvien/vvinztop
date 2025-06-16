@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-
+<?php include('header.php'); ?>
 
 <body class="index-page">
   <main class="main">
@@ -683,6 +683,8 @@
     </section><!-- /Contact Section -->
 
   </main>
+
+  <?php include('footer.php'); ?>
 
   <!-- Preloader -->
   <div id="preloader"></div>
